@@ -107,6 +107,44 @@ int main(){
 
 */
 
+    pasta_ler = fopen("recursos.txt", "r");
+
+    if (pasta_ler == NULL){
+        puts("Pasta não encontrada, criando diretório...");
+        pasta_ler = fopen("recursos.txt", "w+");
+        fclose(pasta_ler);
+        return 0;
+    }
+
+    k = 0;
+    while(fgets(cadeia, 100, pasta_ler) != NULL){
+        char *aux;
+
+        printf("%s\n", cadeia);
+
+        aux = strtok(cadeia ,"|");
+        lista_recursos[k].id = (int)aux;
+
+        aux = strtok(NULL ,"|");
+        lista_recursos[k].aluno_id = (int)aux;
+
+        aux = strtok(NULL ,"|");
+        lista_recursos[k].tipo = aux[0];
+
+        aux = strtok(NULL ,"|");
+        lista_recursos[k].estado = (bool) aux;
+        
+        printf("id -> %d\n", lista_recursos[k].id);
+        printf("tipo -> %c\n", lista_recursos[k].tipo);
+        printf("estado -> %d\n", lista_recursos[k].estado);
+
+        k++;
+        lista_recursos = realloc(lista_recursos, (k + 1) * sizeof(recursos));
+    }  
+    
+    puts("");
+    fclose(pasta_ler);
+
     free(lista_alunos);
     free(lista_livros);
     free(lista_recursos);
