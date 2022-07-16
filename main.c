@@ -32,8 +32,6 @@ int main(){
     while(fgets(cadeia, 100, pasta_ler) != NULL){
         char *aux;
 
-        //printf("%s\n", cadeia);
-
         aux = strtok(cadeia, "|");
         strcpy(lista_alunos[k].nome, aux);
 
@@ -41,7 +39,7 @@ int main(){
         strcpy(lista_alunos[k].matricula, aux);
 
         aux = strtok(NULL ,"|");
-        lista_alunos[k].id = (int)aux;
+        lista_alunos[k].id = atoi(aux);
 
         
         aux = strtok(NULL ,"|");
@@ -52,11 +50,9 @@ int main(){
         lista_alunos = realloc(lista_alunos, (k + 1) * sizeof(aluno));
     }  
     
-    puts("");
     fclose(pasta_ler);
 
-
-/*
+    // Fim leitura alunos
     // Inicio leitura livros
     
     pasta_ler = fopen("livros.txt", "r");
@@ -71,8 +67,6 @@ int main(){
     while(fgets(cadeia, 100, pasta_ler) != NULL){
         char *aux;
 
-        //printf("%s\n", cadeia);
-
         aux = strtok(cadeia, "|");
         strcpy(lista_livros[k].nome, aux);
 
@@ -80,32 +74,22 @@ int main(){
         strcpy(lista_livros[k].categoria, aux);
 
         aux = strtok(NULL ,"|");
-        lista_livros[k].ano = (int)aux;
+        lista_livros[k].ano = atoi(aux);
 
         aux = strtok(NULL ,"|");
-        lista_livros[k].id = (int)aux;
+        lista_livros[k].id = atoi(aux);
         
         aux = strtok(NULL ,"|");
         lista_livros[k].pendencia = (bool)aux;
         
-        printf("%d\n", k);
-        printf("1 Nome.%s\n", lista_livros[0].nome);
-        printf("Nome.%s\n", lista_livros[k].nome);
-        printf("Categoria.%s\n", lista_livros[k].categoria);
-        printf("Id.%d\n\n", lista_livros[k].id);
-
         k++;
         lista_livros = realloc(lista_livros, (k + 1) * sizeof(livro));
     }
-
-    printf("Inside: Nome.%s\n", lista_livros[2].nome);
-    printf("Inside: Categoria.%s\n", lista_livros[2].categoria);
-    printf("Inside: Id.%d\n\n", lista_livros[2].id);
     
     fclose(pasta_ler);
-    //Fim leitura livros
 
-*/
+    //Fim leitura livros
+    //Inicio leitura recursos
 
     pasta_ler = fopen("recursos.txt", "r");
 
@@ -132,18 +116,15 @@ int main(){
         lista_recursos[k].tipo = aux[0];
 
         aux = strtok(NULL ,"|");
-        lista_recursos[k].estado = (bool) aux;
-        
-        printf("id -> %d\n", lista_recursos[k].id);
-        printf("tipo -> %c\n", lista_recursos[k].tipo);
-        printf("estado -> %d\n", lista_recursos[k].estado);
+        lista_recursos[k].estado = (bool) atoi(aux);
 
         k++;
         lista_recursos = realloc(lista_recursos, (k + 1) * sizeof(recursos));
     }  
-    
-    puts("");
+
     fclose(pasta_ler);
+
+    // Fim leitura recursos
 
     free(lista_alunos);
     free(lista_livros);
