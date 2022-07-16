@@ -15,10 +15,50 @@ int main(){
     lista_livros = (livro *) malloc(sizeof(livro));
     lista_recursos = (recursos *) malloc(sizeof(recursos));    
 
-    // Inicio leitura livros
     char cadeia[100];
+    // Inicio leitura alunos
     
     FILE *pasta_ler;
+    pasta_ler = fopen("alunos.txt", "r");
+
+    if (pasta_ler == NULL){
+        puts("Pasta não encontrada, criando diretório...");
+        pasta_ler = fopen("alunos.txt", "w+");
+        fclose(pasta_ler);
+        return 0;
+    }
+
+    int k = 0;
+    while(fgets(cadeia, 100, pasta_ler) != NULL){
+        char *aux;
+
+        //printf("%s\n", cadeia);
+
+        aux = strtok(cadeia, "|");
+        strcpy(lista_alunos[k].nome, aux);
+
+        aux = strtok(NULL ,"|");
+        strcpy(lista_alunos[k].matricula, aux);
+
+        aux = strtok(NULL ,"|");
+        lista_alunos[k].id = (int)aux;
+
+        
+        aux = strtok(NULL ,"|");
+        lista_alunos[k].pendencia = (bool)aux;
+        
+        printf("Nome -> %s\n", lista_alunos[k].nome);
+        k++;
+        lista_alunos = realloc(lista_alunos, (k + 1) * sizeof(aluno));
+    }  
+    
+    puts("");
+    fclose(pasta_ler);
+
+
+/*
+    // Inicio leitura livros
+    
     pasta_ler = fopen("livros.txt", "r");
 
     if (pasta_ler == NULL){
@@ -27,7 +67,7 @@ int main(){
         fclose(pasta_ler);
     }
 
-    int k = 0;
+    k = 0;
     while(fgets(cadeia, 100, pasta_ler) != NULL){
         char *aux;
 
@@ -65,7 +105,7 @@ int main(){
     fclose(pasta_ler);
     //Fim leitura livros
 
-
+*/
 
     free(lista_alunos);
     free(lista_livros);
