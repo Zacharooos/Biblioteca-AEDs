@@ -2,10 +2,14 @@
 #include <stdio.h>
 #include <stdbool.h>
 #include <string.h>
+#include <locale.h>
 #include "struct.h"
 #include "crypto.h"
+#include "funcoes_alunos.h"
 
 int main(){
+
+    setlocale(LC_ALL, "Portuguese");
 
     aluno *lista_alunos;
     livro *lista_livros;
@@ -45,13 +49,13 @@ int main(){
         aux = strtok(NULL ,"|");
         lista_alunos[k].pendencia = (bool)aux;
         
-        printf("Nome -> %s\n", lista_alunos[k].nome);
         k++;
         lista_alunos = realloc(lista_alunos, (k + 1) * sizeof(aluno));
     }  
     
     fclose(pasta_ler);
 
+    int tam_alunos = k;
     // Fim leitura alunos
     // Inicio leitura livros
     
@@ -88,6 +92,7 @@ int main(){
     
     fclose(pasta_ler);
 
+    int tam_livros = k;
     //Fim leitura livros
     //Inicio leitura recursos
 
@@ -104,13 +109,11 @@ int main(){
     while(fgets(cadeia, 100, pasta_ler) != NULL){
         char *aux;
 
-        printf("%s\n", cadeia);
-
         aux = strtok(cadeia ,"|");
-        lista_recursos[k].id = (int)aux;
+        lista_recursos[k].id = atoi(aux);
 
         aux = strtok(NULL ,"|");
-        lista_recursos[k].aluno_id = (int)aux;
+        lista_recursos[k].aluno_id = atoi (aux);
 
         aux = strtok(NULL ,"|");
         lista_recursos[k].tipo = aux[0];
@@ -124,7 +127,13 @@ int main(){
 
     fclose(pasta_ler);
 
+    int tam_recursos = k;
     // Fim leitura recursos
+
+    //problemas :(
+    criar_alunos(lista_alunos, tam_alunos);
+
+    mostrar_alunos(lista_alunos, tam_alunos);
 
     free(lista_alunos);
     free(lista_livros);
