@@ -4,7 +4,9 @@
 
 #endif
 
-//Função para reduzir o espaço de linhas necessário para checar a pendência
+// Seção de Funções implícitas de _alunos
+
+//! Função para reduzir o espaço de linhas necessário para checar a pendência
 void pendencia_alunos(int pendencia){
     if(pendencia == 0){
         puts("Aluno sem pendências!");
@@ -13,9 +15,34 @@ void pendencia_alunos(int pendencia){
     }    
 }
 
+//! Função buscaBinária modificada, procura alunos por id
+int buscaBin(aluno *v, int id, int tam){
+	int inicio = 0, fim = tam, i_meio, v_meio;
+	while(inicio <= fim){
+		i_meio = (fim+inicio)/2;
+		v_meio = v[i_meio].id;
+
+		if (id == v_meio){
+			return i_meio;
+		}
+
+		if (id < v_meio){
+			fim = i_meio - 1;
+		}
+	
+		if (id > v_meio){
+			inicio = i_meio + 1;
+		}
+
+	}
+	return -1; 
+}
+
+// Sessão de funções explícitas de _alunos
+
 //! Função para realizar a busca de um determinado aluno através de seu id, recebe a referência do vetor, o id e o tam.
 // Implementar buscabin
-void buscar_alunos(aluno * lista_alunos, int id, int tam){
+void buscar_alunos(aluno *lista_alunos, int id, int tam){
     for(int i = 0; i < tam; ++i){
         if(lista_alunos[i].id == id){
             printf("Aluno id [%d] encontrado!\n", lista_alunos[i].id);
@@ -63,7 +90,10 @@ int criar_alunos(aluno **lista_alunos, int tam){
 
 }
 
-int remover_alunos(){
+int remover_alunos(aluno **lista_alunos, int id){
+
+
+
 
     return 0;
 }
