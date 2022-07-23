@@ -16,7 +16,7 @@ void pendencia_alunos(int pendencia){
 }
 
 //! Função buscaBinária modificada, procura alunos por id
-int buscaBin(aluno *v, int id, int tam){
+int buscaBin_alunos(aluno *v, int id, int tam){
 	int inicio = 0, fim = tam, i_meio, v_meio;
 	while(inicio <= fim){
 		i_meio = (fim+inicio)/2;
@@ -43,17 +43,17 @@ int buscaBin(aluno *v, int id, int tam){
 //! Função para realizar a busca de um determinado aluno através de seu id, recebe a referência do vetor, o id e o tam.
 // Implementar buscabin
 void buscar_alunos(aluno *lista_alunos, int id, int tam){
-    for(int i = 0; i < tam; ++i){
-        if(lista_alunos[i].id == id){
-            printf("Aluno id [%d] encontrado!\n", lista_alunos[i].id);
-            printf("Nome: %s\n", lista_alunos[i].nome);
-            printf("Matrícula: %s\n", lista_alunos[i].matricula);
-            pendencia_alunos(lista_alunos[i].pendencia);
-            return;
-        }
+    int i = buscaBin_alunos(lista_alunos, id, tam);
+    if (i >= 0){
+        printf("Aluno id [%d] encontrado!\n", lista_alunos[i].id);
+        printf("Nome: %s\n", lista_alunos[i].nome);
+        printf("Matrícula: %s\n", lista_alunos[i].matricula);
+        pendencia_alunos(lista_alunos[i].pendencia);
+
+    } else {
+
+        printf("id não cadastrado!\n");
     }
-    printf("id não cadastrado!\n");
-    return;
 }
 
 //! Função para mostrar todas as matrículas
@@ -80,6 +80,7 @@ int criar_alunos(aluno **lista_alunos, int tam){
     printf("Inserir matricula do aluno: ");
     scanf("%s", (*lista_alunos)[tam].matricula);
 
+    fflush(stdin);
     //checar matricula
 
     (*lista_alunos)[tam].pendencia = 0;
@@ -90,11 +91,18 @@ int criar_alunos(aluno **lista_alunos, int tam){
 
 }
 
-int remover_alunos(aluno **lista_alunos, int id){
-
-
-
-
-    return 0;
+//! Função para remover alunos, define id do aluno como -1;
+void remover_alunos(aluno *lista_alunos, int id, int tam){
+    int i = buscaBin_alunos(lista_alunos, id, tam);
+    if (i >= 0){
+        if(lista_alunos[i].pendencia == 0){
+            puts("Deletando aluno!");
+            lista_alunos[i].id = -1;
+        } else {
+            puts("Não foi possível deletar o aluno!\nMotivo: Pendência");
+        }
+    } else {
+        puts("Id não cadastrado!");
+    }
 }
  

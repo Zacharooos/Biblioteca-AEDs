@@ -6,6 +6,7 @@
 #include "struct.h"
 #include "crypto.h"
 #include "funcoes_alunos.h"
+#include "funcoes_livros.h"
 
 int main(){
 
@@ -130,17 +131,22 @@ int main(){
     int tam_recursos = k;
     // Fim leitura recursos
 
-    //problemas :(
-    //criar_alunos(lista_alunos, tam_alunos);
-
-    mostrar_alunos(lista_alunos, tam_alunos);
+    //Testes alunos (concluídos!)
+    
     tam_alunos = criar_alunos(&lista_alunos, tam_alunos);
-    printf("tamanho real = %d\n", tam_alunos);
-    buscar_alunos(lista_alunos, 4, tam_alunos);
+    tam_alunos = criar_alunos(&lista_alunos, tam_alunos);
+    remover_alunos(lista_alunos, 5, tam_alunos);
+    buscar_alunos(lista_alunos, 5, tam_alunos);
+    remover_alunos(lista_alunos, 15, tam_alunos);
+    mostrar_alunos(lista_alunos, tam_alunos);
+    
+
+
 
     free(lista_alunos);
     free(lista_livros);
     free(lista_recursos);
+
     
     return 0;
 }
