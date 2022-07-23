@@ -20,10 +20,32 @@ int main(){
     lista_livros = (livro *) malloc(sizeof(livro));
     lista_recursos = (recursos *) malloc(sizeof(recursos));    
 
-    char cadeia[100];
-    // Inicio leitura alunos
-    
+    int id_data[3];
+
     FILE *pasta_ler;
+    
+    // Leitura do id_data
+    char cadeia[100];
+    pasta_ler = fopen("id_data.txt", "r");
+
+    if (pasta_ler == NULL){
+        puts("FatalError! Pasta não encontrada...");
+        pasta_ler = fopen("id_data.txt", "w+");
+        // Não funciona a escrita!
+        fprintf(pasta_ler, '0\n');
+        fprintf(pasta_ler, '0\n');
+        fprintf(pasta_ler, '0\n');
+        fclose(pasta_ler);
+        puts("Reinicie o programa!");
+        return 0;
+    }
+
+    for (int i = 0; i < 3; ++i){
+        fgets(cadeia, 11, pasta_ler);
+        id_data[i] = atoi(cadeia);
+    }
+    
+    // Inicio leitura alunos
     pasta_ler = fopen("alunos.txt", "r");
 
     if (pasta_ler == NULL){
@@ -48,7 +70,7 @@ int main(){
 
         
         aux = strtok(NULL ,"|");
-        lista_alunos[k].pendencia = (bool) atoi(aux);
+        lista_alunos[k].pendencia = atoi(aux);
         
         k++;
         lista_alunos = realloc(lista_alunos, (k + 1) * sizeof(aluno));
@@ -86,6 +108,9 @@ int main(){
         
         aux = strtok(NULL ,"|");
         lista_livros[k].pendencia = (bool) atoi(aux);
+
+        aux = strtok(NULL ,"|");
+        lista_livros[k].aluno_id = atoi(aux);
         
         k++;
         lista_livros = realloc(lista_livros, (k + 1) * sizeof(livro));
@@ -133,14 +158,29 @@ int main(){
 
     //Testes alunos (concluídos!)
     
-    tam_alunos = criar_alunos(&lista_alunos, tam_alunos);
-    tam_alunos = criar_alunos(&lista_alunos, tam_alunos);
+    tam_alunos = criar_alunos(&lista_alunos, tam_alunos, id_data);
+    /*
+    tam_alunos = criar_alunos(&lista_alunos, tam_alunos, id_data);
     remover_alunos(lista_alunos, 5, tam_alunos);
     buscar_alunos(lista_alunos, 5, tam_alunos);
     remover_alunos(lista_alunos, 15, tam_alunos);
     mostrar_alunos(lista_alunos, tam_alunos);
-    
+    printf("%d\n", id_data[0]);
+    */
 
+    
+    //tam_livros = criar_livros(&lista_livros, tam_livros, id_data);
+    tam_livros = criar_livros(&lista_livros, tam_livros, id_data);
+    puts("=!=");
+    buscar_livros(lista_livros, 6, tam_livros);
+    //remover_livros(lista_livros, 7, tam_livros);
+    puts("=!=");
+    registro_livros(lista_livros, lista_alunos, 6, 5, tam_livros, tam_alunos);
+
+    buscar_livros(lista_livros, 6, tam_livros);
+    buscar_alunos(lista_alunos, 5, tam_alunos);
+    
+    mostrar_livros(lista_livros, lista_alunos, tam_livros, tam_alunos);
 
 
     free(lista_alunos);

@@ -11,7 +11,7 @@ void pendencia_alunos(int pendencia){
     if(pendencia == 0){
         puts("Aluno sem pendências!");
     } else {
-        puts("Aluno com pendencias!");
+        printf("Aluno com %d pendencia(s)!\n", pendencia);
     }    
 }
 
