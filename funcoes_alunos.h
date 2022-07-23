@@ -41,7 +41,6 @@ int buscaBin_alunos(aluno *v, int id, int tam){
 // Sessão de funções explícitas de _alunos
 
 //! Função para realizar a busca de um determinado aluno através de seu id, recebe a referência do vetor, o id e o tam.
-// Implementar buscabin
 void buscar_alunos(aluno *lista_alunos, int id, int tam){
     int i = buscaBin_alunos(lista_alunos, id, tam);
     if (i >= 0){
@@ -56,7 +55,7 @@ void buscar_alunos(aluno *lista_alunos, int id, int tam){
     }
 }
 
-//! Função para mostrar todas as matrículas
+ 
 void mostrar_alunos(aluno * lista_alunos, int tam){
     for(int i = 0; i < tam; ++i){
         printf("Id: %d\n", lista_alunos[i].id);
@@ -69,9 +68,10 @@ void mostrar_alunos(aluno * lista_alunos, int tam){
 
 //! Função para criação de novos alunos, cria um aluno apenas.
 // Implementar checar matrícula
-int criar_alunos(aluno **lista_alunos, int tam){
+int criar_alunos(aluno **lista_alunos, int tam, int *id_data){
     *lista_alunos = realloc(*lista_alunos, (tam + 1) * sizeof(aluno));
-    (*lista_alunos)[tam].id = tam+1;
+    id_data[0]++;
+    (*lista_alunos)[tam].id = id_data[0];
     printf("Iniciado registro ID: %d\n", (*lista_alunos)[tam].id);
     
     printf("Inserir nome do aluno: ");
@@ -99,10 +99,10 @@ void remover_alunos(aluno *lista_alunos, int id, int tam){
             puts("Deletando aluno!");
             lista_alunos[i].id = -1;
         } else {
-            puts("Não foi possível deletar o aluno!\nMotivo: Pendência");
+            puts("Erro: Não foi possível deletar o aluno!\nMotivo: Pendência");
         }
     } else {
-        puts("Id não cadastrado!");
+        puts("Erro: Id não cadastrado!");
     }
 }
  
