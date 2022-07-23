@@ -47,7 +47,7 @@ int main(){
 
         
         aux = strtok(NULL ,"|");
-        lista_alunos[k].pendencia = (bool)aux;
+        lista_alunos[k].pendencia = (bool) atoi(aux);
         
         k++;
         lista_alunos = realloc(lista_alunos, (k + 1) * sizeof(aluno));
@@ -84,7 +84,7 @@ int main(){
         lista_livros[k].id = atoi(aux);
         
         aux = strtok(NULL ,"|");
-        lista_livros[k].pendencia = (bool)aux;
+        lista_livros[k].pendencia = (bool) atoi(aux);
         
         k++;
         lista_livros = realloc(lista_livros, (k + 1) * sizeof(livro));
@@ -131,9 +131,12 @@ int main(){
     // Fim leitura recursos
 
     //problemas :(
-    criar_alunos(lista_alunos, tam_alunos);
+    //criar_alunos(lista_alunos, tam_alunos);
 
     mostrar_alunos(lista_alunos, tam_alunos);
+    tam_alunos = criar_alunos(&lista_alunos, tam_alunos);
+    printf("tamanho real = %d\n", tam_alunos);
+    buscar_alunos(lista_alunos, 4, tam_alunos);
 
     free(lista_alunos);
     free(lista_livros);
