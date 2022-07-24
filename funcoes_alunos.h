@@ -57,12 +57,20 @@ void buscar_alunos(aluno *lista_alunos, int id, int tam){
 
  
 void mostrar_alunos(aluno * lista_alunos, int tam){
-    for(int i = 0; i < tam; ++i){
-        printf("Id: %d\n", lista_alunos[i].id);
-        printf("Matrícula: %s\n", lista_alunos[i].matricula);
-        printf("Nome: %s\n", lista_alunos[i].nome);
-        pendencia_alunos(lista_alunos[i].pendencia);
-        puts("=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=");
+    int contador = 0;
+    int i = 0;
+    while(contador < tam){
+        if(lista_alunos[i].id < 0){
+            i++;
+        } else {
+            printf("Id: %d\n", lista_alunos[i].id);
+            printf("Matrícula: %s\n", lista_alunos[i].matricula);
+            printf("Nome: %s\n", lista_alunos[i].nome);
+            pendencia_alunos(lista_alunos[i].pendencia);
+            puts("=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=");
+            contador++;
+            i++;
+        }
     }
 }
 
@@ -92,17 +100,19 @@ int criar_alunos(aluno **lista_alunos, int tam, int *id_data){
 }
 
 //! Função para remover alunos, define id do aluno como -1;
-void remover_alunos(aluno *lista_alunos, int id, int tam){
+int remover_alunos(aluno *lista_alunos, int id, int tam){
     int i = buscaBin_alunos(lista_alunos, id, tam);
     if (i >= 0){
         if(lista_alunos[i].pendencia == 0){
             puts("Deletando aluno!");
             lista_alunos[i].id = -1;
+            return tam-1;
         } else {
             puts("Erro: Não foi possível deletar o aluno!\nMotivo: Pendência");
         }
     } else {
         puts("Erro: Id não cadastrado!");
     }
+    return tam;
 }
  

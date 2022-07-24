@@ -121,13 +121,14 @@ int remover_recursos(recursos *lista_recursos, int id, int tam){
         if(lista_recursos[i].estado == 0){
             puts("Deletando recurso!");
             lista_recursos[i].id = -1;
+            return tam-1;
         } else {
             puts("Erro: Não foi possível deletar o recurso!\nMotivo: Pendência");
         }
     } else {
         puts("Erro: Id não cadastrado!");
     }
-    return tam-1;
+    return tam;
 }
 
 //! Função para cadastrar recurso no alunos

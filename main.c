@@ -223,6 +223,10 @@ int main(){
     buscar_alunos(lista_alunos, 1, tam_alunos);
     */
 
+    mostrar_alunos(lista_alunos, tam_alunos);
+    tam_alunos = remover_alunos(lista_alunos, 3, tam_alunos);
+    mostrar_alunos(lista_alunos, tam_alunos);
+
     free(lista_alunos);
     free(lista_livros);
     free(lista_recursos);

@@ -61,19 +61,26 @@ void buscar_livros(livro *lista_livros, aluno * lista_alunos, int id, int tam_li
 
 //! Função para mostrar todos os livros
 void mostrar_livros(livro * lista_livros, aluno * lista_alunos, int tam_livros, int tam_alunos){
-    for(int i = 0; i < tam_livros; ++i){
-        printf("Livro id [%d] encontrado!\n", lista_livros[i].id);
-        printf("Nome: %s\n", lista_livros[i].nome);
-        printf("Categoria: %s\n", lista_livros[i].categoria);
-		printf("Publicação: %d\n", lista_livros[i].ano);
-		pendencia_livros(lista_livros[i].pendencia);
+    int contador = 0;
+    int i = 0;
+    while(contador < tam_livros){
+        if(lista_livros[i].id < 0){
+            i++;
+        } else {
+            printf("Livro id [%d] encontrado!\n", lista_livros[i].id);
+            printf("Nome: %s\n", lista_livros[i].nome);
+            printf("Categoria: %s\n", lista_livros[i].categoria);
+            printf("Publicação: %d\n", lista_livros[i].ano);
+            pendencia_livros(lista_livros[i].pendencia);
 
-        if(lista_livros[i].pendencia == true){
-            int i_aluno = buscaBin_alunos(lista_alunos, lista_livros[i].aluno_id, tam_alunos);
-            printf("Matricula do aluno: %s\n", lista_alunos[i_aluno].matricula);
+            if(lista_livros[i].pendencia == true){
+                int i_aluno = buscaBin_alunos(lista_alunos, lista_livros[i].aluno_id, tam_alunos);
+                printf("Matricula do aluno: %s\n", lista_alunos[i_aluno].matricula);
+            }
+            puts("=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=");
+            i++;
+            contador++;
         }
-
-        puts("=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=");
     }
 }
 
@@ -105,18 +112,20 @@ int criar_livros(livro **lista_livros, int tam, int *id_data){
 }
 
 //! Função para remover livros, define id do aluno como -1;
-void remover_livros(livro *lista_livros, int id, int tam){
+int remover_livros(livro *lista_livros, int id, int tam){
     int i = buscaBin_livros(lista_livros, id, tam);
-    if (i >= 0){
+    if (i > -1){
         if(lista_livros[i].pendencia == 0){
             puts("Deletando livro");
             lista_livros[i].id = -1;
+            return tam-1;
         } else {
             puts("Erro: Não foi possível deletar o livro!\nMotivo: Pendência");
         }
     } else {
         puts("Erro: Id não cadastrado!");
     }
+    return tam;
 }
 
 //! Função para cadastrar livro no alunos
