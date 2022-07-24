@@ -36,17 +36,23 @@ int buscaBin_livros(livro *v, int id, int tam){
 	return -1; 
 }
 
+// Seção de funções explícitas de _livros
 
 //! Função para realizar a busca de um determinado livro através de seu id, recebe a referência do vetor, o id e o tam.
-void buscar_livros(livro *lista_livros, int id, int tam){
-    int i = buscaBin_livros(lista_livros, id, tam);
+void buscar_livros(livro *lista_livros, aluno * lista_alunos, int id, int tam_livros, int tam_alunos){
+    int i = buscaBin_livros(lista_livros, id, tam_livros);
     if (i >= 0){
         printf("Livro id [%d] encontrado!\n", lista_livros[i].id);
         printf("Nome: %s\n", lista_livros[i].nome);
         printf("Categoria: %s\n", lista_livros[i].categoria);
 		printf("Publicação: %d\n", lista_livros[i].ano);
-        
 		pendencia_livros(lista_livros[i].pendencia);
+
+        if(lista_livros[i].pendencia == true){
+            int i_aluno = buscaBin_alunos(lista_alunos, lista_livros[i].aluno_id, tam_alunos);
+            printf("Matricula do aluno: %s\n", lista_alunos[i_aluno].matricula);
+        }
+        
 
     } else {
         printf("Erro: Id não cadastrado!\n");
@@ -113,11 +119,12 @@ void remover_livros(livro *lista_livros, int id, int tam){
     }
 }
 
+//! Função para cadastrar livro no alunos
 void registro_livros(livro *lista_livros, aluno *lista_alunos, int id, int id_aluno, int tam_livros, int tam_alunos){
     int i_livro = buscaBin_livros(lista_livros, id, tam_livros);
     int i_aluno = buscaBin_alunos(lista_alunos, id_aluno, tam_alunos);
     
-    //Cecar se o livro existe
+    //Checar se o livro existe
     if (i_livro < 0){
         puts("Erro: Livro não encontrado!");
         return;
@@ -138,5 +145,37 @@ void registro_livros(livro *lista_livros, aluno *lista_alunos, int id, int id_al
 
     } else {
         puts("Erro: Impossível emprestar, livro não disponível!");
+    }
+}
+
+//! Função para devolução do livro
+void deregistro_livros(livro *lista_livros, aluno *lista_alunos, int id, int id_aluno, int tam_livros, int tam_alunos){
+    int i_livro = buscaBin_livros(lista_livros, id, tam_livros);
+    int i_aluno = buscaBin_alunos(lista_alunos, id_aluno, tam_alunos);
+    
+    //Checar se o livro existe
+    if (i_livro < 0){
+        puts("Erro: Livro não encontrado!");
+        return;
+    }
+
+    //Checar se o aluno existe
+    if (i_aluno < 0){
+        puts("Erro: Aluno não encontrado!");
+        return;
+    }
+
+    //Checar se o livro está emprestado
+    if (lista_livros[i_livro].pendencia == 1){
+        if (lista_livros[i_livro].aluno_id == lista_alunos[i_aluno].id){
+            lista_livros[i_livro].pendencia = 0;
+            lista_livros[i_livro].aluno_id = -2;
+            lista_alunos[i_aluno].pendencia--;
+            puts("Devolução realizada com sucesso!");
+        } else {
+            puts("Livro não vinculado a este aluno, falha no processo!");
+        }
+    } else {
+        puts("Erro: Impossível devolver, livro está no estoque!");
     }
 }

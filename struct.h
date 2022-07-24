@@ -13,7 +13,7 @@ typedef struct aluno{
     const char nome[52];
     const char matricula[12];
     int id;
-    bool pendencia;
+    int pendencia;
 
 } aluno;
 

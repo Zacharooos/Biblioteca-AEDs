@@ -7,6 +7,7 @@
 #include "crypto.h"
 #include "funcoes_alunos.h"
 #include "funcoes_livros.h"
+#include "funcoes_recursos.h"
 
 int main(){
 
@@ -158,8 +159,8 @@ int main(){
 
     //Testes alunos (concluídos!)
     
-    tam_alunos = criar_alunos(&lista_alunos, tam_alunos, id_data);
     /*
+    tam_alunos = criar_alunos(&lista_alunos, tam_alunos, id_data);
     tam_alunos = criar_alunos(&lista_alunos, tam_alunos, id_data);
     remover_alunos(lista_alunos, 5, tam_alunos);
     buscar_alunos(lista_alunos, 5, tam_alunos);
@@ -169,19 +170,58 @@ int main(){
     */
 
     
+    //testes livros (concluídos!)
+    /*
     //tam_livros = criar_livros(&lista_livros, tam_livros, id_data);
     tam_livros = criar_livros(&lista_livros, tam_livros, id_data);
     puts("=!=");
-    buscar_livros(lista_livros, 6, tam_livros);
     //remover_livros(lista_livros, 7, tam_livros);
     puts("=!=");
     registro_livros(lista_livros, lista_alunos, 6, 5, tam_livros, tam_alunos);
 
-    buscar_livros(lista_livros, 6, tam_livros);
+    buscar_livros(lista_livros, lista_alunos, 6, tam_livros, tam_alunos);
     buscar_alunos(lista_alunos, 5, tam_alunos);
     
-    mostrar_livros(lista_livros, lista_alunos, tam_livros, tam_alunos);
+    printf("\n D E V O L U Ç A O\n\n");
 
+    deregistro_livros(lista_livros, lista_alunos, 6, 5, tam_livros, tam_alunos);
+
+    buscar_livros(lista_livros, lista_alunos, 6, tam_livros, tam_alunos);
+    buscar_alunos(lista_alunos, 5, tam_alunos);
+
+    mostrar_livros(lista_livros, lista_alunos, tam_livros, tam_alunos);
+    */
+
+    //mostrar_recursos(lista_recursos, lista_alunos, tam_recursos, tam_alunos);
+    //buscar_recursos(lista_recursos, lista_alunos, 1, tam_recursos, tam_alunos);
+    //buscar_recursos(lista_recursos, lista_alunos, 2, tam_recursos, tam_alunos);
+    //buscar_recursos(lista_recursos, lista_alunos, 4, tam_recursos, tam_alunos);
+    
+    /*
+    tam_recursos = criar_recursos(&lista_recursos, tam_recursos);
+    buscar_recursos(lista_recursos, lista_alunos, 5, tam_recursos, tam_alunos);
+    remover_recursos(lista_recursos, 5, tam_recursos);
+    buscar_recursos(lista_recursos, lista_alunos, 5, tam_recursos, tam_alunos);
+    */
+    /*
+    tam_recursos = remover_recursos(lista_recursos, 4, tam_recursos);
+    //remover_recursos(lista_recursos, 2, tam_recursos);
+    mostrar_recursos(lista_recursos, lista_alunos, tam_recursos, tam_alunos);
+    tam_recursos = remover_recursos(lista_recursos, 1, tam_recursos);
+    tam_recursos = remover_recursos(lista_recursos, 3, tam_recursos);
+    */
+
+    //Testes recursos (sucesso!)
+    /*
+    mostrar_recursos(lista_recursos, lista_alunos, tam_recursos, tam_alunos);
+    registro_recursos(lista_recursos, lista_alunos, 3, 1, tam_recursos, tam_alunos);
+    buscar_recursos(lista_recursos, lista_alunos, 3, tam_recursos, tam_alunos);
+    buscar_alunos(lista_alunos, 1, tam_alunos);
+    printf("\n DEREGISTRO \n");
+    deregistro_recursos(lista_recursos, lista_alunos, 3, 1, tam_recursos, tam_alunos);
+    buscar_recursos(lista_recursos, lista_alunos, 3, tam_recursos, tam_alunos);
+    buscar_alunos(lista_alunos, 1, tam_alunos);
+    */
 
     free(lista_alunos);
     free(lista_livros);
